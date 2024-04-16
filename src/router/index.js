@@ -5,6 +5,7 @@ import ServicesLayout from '../views/admin/services/ServicesLayout.vue'
 import AppointmentsLayout from '../views/admin/appointments/AppointmentsLayout.vue'
 import AuthAPI from '../api/AuthAPI'
 
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -14,45 +15,45 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path:'/admin',
-      name:'admin',
+      path: '/admin',
+      name: 'admin',
       component: AdminLayout,
-      meta:{ requiresAuth:true },
-      children:[
+      meta: { requiresAuth: true },
+      children: [
         {
-          path:'',
-          name:'welcome',
+          path: '',
+          name: 'welcome',
           component: () => import('../views/admin/WelcomeView.vue')
         },
         {
-          path:'servicios',
+          path: 'servicios',
           component: ServicesLayout,
-          children:[
+          children: [
             {
-              path:'',
+              path: '',
               name: 'services',
               component: () => import('../views/admin/services/ServicesView.vue')
             },
             {
-              path:'agregar-servicio',
+              path: 'agregar-servicio',
               name: 'add-service',
               component: () => import('../views/admin/services/NewServiceView.vue')
             },
             {
-              path:':id/editar',
-              name:'edit-service',
+              path: ':id/editar',
+              name: 'edit-service',
               component: () => import('../views/admin/services/EditServiceView.vue')
             }
 
           ]
         },
         {
-          path:'citas',
-          component:AppointmentsLayout,
-          children:[
+          path: 'citas',
+          component: AppointmentsLayout,
+          children: [
             {
-              path:'',
-              name:'appointments',
+              path: '',
+              name: 'appointments',
               component: () => import('../views/admin/appointments/AppointmentsView.vue')
             }
           ]
@@ -64,29 +65,31 @@ const router = createRouter({
 })
 
 
-router.beforeEach( async (to,from, next) => {
+router.beforeEach(async (to, from, next) => {
 
-  const requiresAuth = to.matched.some( url => url.meta.requiresAuth )
-  if(requiresAuth){
+  const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
+  if (requiresAuth) {
     try {
 
-      const {data } = await AuthAPI.auth()
+      const { data } = await AuthAPI.auth()
       // console.log(data.isAdmin);
-      if(data.isAdmin){
+      if (data.isAdmin) {
         next()
-      }else{
-        next({ name : 'home'})
+      } else {
+
+        next({ name: 'home' })
+
       }
-      
-     
-      
+
+
+
     } catch (error) {
-      next({ name : 'home'})
+      next({ name: 'home' })
     }
-  }else{
+  } else {
     next()
   }
- 
+
 
 })
 
