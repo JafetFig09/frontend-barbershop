@@ -9,13 +9,14 @@ import config from './formkit.config'
 import App from './App.vue'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-icons/font/bootstrap-icons.css'
 import router from './router'
 
 import "vue-toast-notification/dist/theme-sugar.css"
 
 const $toast = useToast({
-    duration:5000,
-    position:'top-right'
+    duration: 5000,
+    position: 'top-right'
 })
 
 
@@ -23,7 +24,7 @@ const app = createApp(App)
 
 app.provide('toast', $toast)
 app.use(createPinia())
-app.use(plugin,defaultConfig(config))
+app.use(plugin, defaultConfig(config))
 app.use(router)
 
 app.mount('#app')

@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import AdminLayout from '../views/admin/AdminLayout.vue'
 import ServicesLayout from '../views/admin/services/ServicesLayout.vue'
 import AppointmentsLayout from '../views/admin/appointments/AppointmentsLayout.vue'
 import AuthAPI from '../api/AuthAPI'
@@ -16,13 +15,12 @@ const router = createRouter({
     },
     {
       path: '/admin',
-      name: 'admin',
-      component: AdminLayout,
+      component: () => import('../views/admin/AdminLayout.vue'),
       meta: { requiresAuth: true },
       children: [
         {
           path: '',
-          name: 'welcome',
+          name: 'admin',
           component: () => import('../views/admin/WelcomeView.vue')
         },
         {
