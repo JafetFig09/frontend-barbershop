@@ -5,6 +5,7 @@ import ServicesAPI from '../../../api/ServicesAPI';
 import { useRouter } from 'vue-router'
 import { useServicesStore } from '../../../stores/services'
 
+
 const toast = inject('toast')
 const router = useRouter()
 const store = useServicesStore()
@@ -48,6 +49,9 @@ const handleSubmit = async ({ name, description, price, mainService, image }) =>
         console.error(error);
     }
 }
+
+
+
 </script>
 
 <template>
@@ -75,9 +79,11 @@ const handleSubmit = async ({ name, description, price, mainService, image }) =>
                             placeholder="Descripcion servicio" validation="required" :validation-messages="{
                                 required: 'Campo obligatorio'
                             }" />
-                        <FormKit type="number" label="Precio" name="price" placeholder="Precio servicio"
-                            validation="required" :validation-messages="{
-                                required: 'Campo obligatorio'
+                        <FormKit type="text" label="Precio" name="price" placeholder="Precio servicio" min="30"
+                            validation="required|min:0||*matches:/^[0-9]+(\.[0-9]+)?$/" :validation-messages="{
+                                required: 'Campo obligatorio',
+                                min: 'El precio debe ser un número positivo',
+                                matches: 'El precio debe ser un número'
                             }" />
 
                         <FormKit type="select" name="mainService" label="Marcar como destacado" :options="[
