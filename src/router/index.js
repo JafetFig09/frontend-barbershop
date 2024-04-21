@@ -56,6 +56,23 @@ const router = createRouter({
             }
           ]
 
+        },
+        {
+          path: 'horario',
+          component: () => import('../views/admin/schedule/ScheduleLayout.vue'),
+          children: [
+            {
+              path: '',
+              name: 'working-hours',
+              component: () => import('../views/admin/schedule/ScheduleView.vue'),
+            },
+            {
+              path: ':id/editar',
+              name: 'edit-hours',
+              component: () => import('../views/admin/schedule/EditScheduleView.vue'),
+            }
+          ]
+
         }
       ]
     }

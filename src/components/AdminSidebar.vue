@@ -31,6 +31,12 @@ defineProps({
                         Citas
                     </RouterLink>
                 </li>
+
+                <li class="sidebar-item">
+                    <RouterLink :to="{ name: 'working-hours' }" class="sidebar-link">
+                        <i class="bi bi-watch"></i> Horario
+                    </RouterLink>
+                </li>
             </ul>
         </div>
     </aside>
